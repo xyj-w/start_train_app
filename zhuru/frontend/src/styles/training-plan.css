@@ -1,0 +1,72 @@
+.training-plan {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.day-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 247, 255, 0.9));
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease;
+}
+
+.day-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-light);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.day-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.exercise-list {
+  list-style: none;
+}
+
+.exercise-item {
+  margin-bottom: 15px;
+  padding: 15px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.exercise-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.exercise-detail {
+  color: var(--primary);
+  font-weight: 500;
+  background: rgba(139, 95, 191, 0.1);
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}

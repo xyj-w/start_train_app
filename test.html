@@ -1,1 +1,2048 @@
-123
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能健身管理系统 | 科学减脂增肌</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B5FBF;
+            --primary-light: #B39CD0;
+            --secondary: #FF6B9D;
+            --secondary-light: #FFB8D0;
+            --accent: #00C9B7;
+            --accent-light: #80E8DD;
+            --light-bg: #F8F7FF;
+            --card-bg: #FFFFFF;
+            --text-primary: #333344;
+            --text-secondary: #666677;
+            --text-light: #888899;
+            --border: #E8E6F0;
+            --shadow: rgba(139, 95, 191, 0.1);
+            --shadow-hover: rgba(139, 95, 191, 0.15);
+            --success: #00C9B7;
+            --warning: #FFB300;
+            --danger: #FF6B9D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F8F7FF 0%, #F0EEFF 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 15px 40px var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .card-title i {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .input-label i {
+            color: var(--primary);
+        }
+
+        .elegant-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--light-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .elegant-input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: white;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 95, 191, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--light-bg);
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 247, 255, 0.9));
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .macro-visual {
+            margin: 25px 0;
+        }
+
+        .macro-bars {
+            display: flex;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            margin-bottom: 10px;
+        }
+
+        .macro-protein {
+            background: linear-gradient(135deg, var(--primary), #9D7CC9);
+        }
+
+        .macro-carbs {
+            background: linear-gradient(135deg, var(--accent), #26D9C9);
+        }
+
+        .macro-fat {
+            background: linear-gradient(135deg, var(--secondary), #FF8FB2);
+        }
+
+        .macro-labels {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+            background: var(--light-bg);
+            padding: 5px;
+            border-radius: 12px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 3px 10px var(--shadow);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .training-plan {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .day-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 247, 255, 0.9));
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-light);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .exercise-list {
+            list-style: none;
+        }
+
+        .exercise-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .exercise-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .exercise-detail {
+            color: var(--primary);
+            font-weight: 500;
+            background: rgba(139, 95, 191, 0.1);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .exercise-images {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .image-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-preview:hover {
+            transform: scale(1.05);
+        }
+
+        .upload-btn {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(139, 95, 191, 0.05);
+        }
+
+        .meal-log {
+            margin-top: 25px;
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 12px;
+        }
+
+        .date-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .current-date {
+            flex: 1;
+            text-align: center;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .meal-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--light-bg);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .meal-time {
+            min-width: 100px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .meal-content {
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .meal-macros {
+            display: flex;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .meal-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-edit {
+            background: rgba(0, 201, 183, 0.1);
+            color: var(--accent);
+        }
+
+        .action-delete {
+            background: rgba(255, 107, 157, 0.1);
+            color: var(--danger);
+        }
+
+        .action-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .modal-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .daily-total {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .total-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .total-item {
+            text-align: center;
+        }
+
+        .total-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .total-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .action-buttons {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 25px rgba(139, 95, 191, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 35px rgba(139, 95, 191, 0.4);
+        }
+
+        .floating-btn::after {
+            content: attr(title);
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .floating-btn:hover::after {
+            opacity: 1;
+        }
+
+        .image-modal {
+            max-width: 800px;
+        }
+
+        .image-modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .large-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.1rem;
+            }
+            
+            .floating-btn::after {
+                display: none;
+            }
+            
+            .meal-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .meal-macros {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .meal-actions {
+                align-self: flex-end;
+            }
+            
+            .training-plan {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--border);
+        }
+
+        .exercise-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .progress-percent {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div>
+                    <h1>智能健身管理系统</h1>
+                    <p class="subtitle">科学减脂增肌 · 实时追踪管理 · 个性化调整</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 数据输入与计算结果 -->
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-calculator"></i>
+                        <span>基础数据与计算</span>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-ruler-vertical"></i>
+                        <span>身高 (cm)</span>
+                    </div>
+                    <input type="number" id="height" class="elegant-input" value="160" min="100" max="220">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-weight-scale"></i>
+                        <span>体重 (kg)</span>
+                    </div>
+                    <input type="number" id="weight" class="elegant-input" value="54" min="30" max="150">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-bullseye"></i>
+                        <span>BMI指数</span>
+                    </div>
+                    <input type="number" id="bmi" class="elegant-input" value="21.1" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-fire"></i>
+                        <span>训练日摄入热量 (大卡)</span>
+                    </div>
+                    <input type="number" id="trainCalories" class="elegant-input" value="1750" min="1000" max="3000">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-bed"></i>
+                        <span>休息日摄入热量 (大卡)</span>
+                    </div>
+                    <input type="number" id="restCalories" class="elegant-input" value="1650" min="1000" max="3000">
+                </div>
+                
+                <button class="btn btn-primary" onclick="calculateMacros()">
+                    <i class="fas fa-sync-alt"></i>
+                    重新计算营养素
+                </button>
+                
+                <div id="macroResults" style="display: none;">
+                    <div class="macro-visual">
+                        <div class="macro-bars" id="macroBars">
+                            <div class="macro-protein" style="width: 27%"></div>
+                            <div class="macro-carbs" style="width: 48%"></div>
+                            <div class="macro-fat" style="width: 25%"></div>
+                        </div>
+                        <div class="macro-labels">
+                            <span>蛋白质 <span id="proteinPct">27%</span></span>
+                            <span>碳水 <span id="carbsPct">48%</span></span>
+                            <span>脂肪 <span id="fatPct">25%</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="trainProtein">119</div>
+                            <div class="stat-label">训练日蛋白质(g)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="trainCarbs">193</div>
+                            <div class="stat-label">训练日碳水(g)</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="trainFat">49</div>
+                            <div class="stat-label">训练日脂肪(g)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        <span>今日摄入记录</span>
+                    </div>
+                    <div class="current-date" id="currentDate"></div>
+                </div>
+                
+                <div class="date-picker">
+                    <button class="date-btn" onclick="changeDate(-1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span id="selectedDate"></span>
+                    <button class="date-btn" onclick="changeDate(1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <div id="mealLogContainer">
+                    <!-- 餐食记录将通过JS动态生成 -->
+                </div>
+                
+                <div class="daily-total">
+                    <div class="total-grid">
+                        <div class="total-item">
+                            <div class="total-value" id="totalCalories">0</div>
+                            <div class="total-label">总热量</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="totalProtein">0</div>
+                            <div class="total-label">蛋白质</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="totalCarbs">0</div>
+                            <div class="total-label">碳水化合物</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="totalFat">0</div>
+                            <div class="total-label">脂肪</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="openMealModal()" style="width: 100%; margin-top: 20px;">
+                    <i class="fas fa-plus"></i>
+                    添加餐食记录
+                </button>
+            </div>
+        </div>
+
+        <!-- 导航标签 -->
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('training')">
+                <i class="fas fa-dumbbell"></i>
+                训练计划
+            </div>
+            <div class="tab" onclick="showTab('nutrition')">
+                <i class="fas fa-apple-alt"></i>
+                营养目标
+            </div>
+            <div class="tab" onclick="showTab('progress')">
+                <i class="fas fa-chart-bar"></i>
+                进度分析
+            </div>
+        </div>
+
+        <!-- 训练计划 -->
+        <div id="training" class="tab-content active">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>一周训练计划</span>
+                    </div>
+                    <button class="btn btn-secondary btn-small" onclick="openExerciseModal()">
+                        <i class="fas fa-plus"></i>
+                        添加训练动作
+                    </button>
+                </div>
+                
+                <div class="training-plan" id="trainingPlan">
+                    <!-- 训练计划将通过JS动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 营养目标 -->
+        <div id="nutrition" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-pie"></i>
+                        <span>营养目标设置</span>
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="input-group">
+                        <div class="input-label">
+                            <i class="fas fa-drumstick-bite"></i>
+                            <span>蛋白质比例 (%)</span>
+                        </div>
+                        <input type="number" id="proteinRatio" class="elegant-input" value="27" min="20" max="40" step="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <i class="fas fa-bread-slice"></i>
+                            <span>碳水比例 (%)</span>
+                        </div>
+                        <input type="number" id="carbsRatio" class="elegant-input" value="48" min="30" max="60" step="1">
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="input-label">
+                            <i class="fas fa-oil-can"></i>
+                            <span>脂肪比例 (%)</span>
+                        </div>
+                        <input type="number" id="fatRatio" class="elegant-input" value="25" min="15" max="35" step="1">
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="updateNutritionGoals()">
+                    <i class="fas fa-save"></i>
+                    保存营养目标
+                </button>
+            </div>
+        </div>
+
+        <!-- 进度分析 -->
+        <div id="progress" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>进度分析</span>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle class="progress-ring-circle" stroke="#E8E6F0" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                                <circle class="progress-ring-circle" stroke="#8B5FBF" stroke-width="8" fill="transparent" r="42" cx="50" cy="50" 
+                                    stroke-dasharray="264" stroke-dashoffset="132" id="calorieProgress"/>
+                            </svg>
+                            <div class="progress-text">
+                                <div class="progress-percent" id="caloriePercent">50%</div>
+                                <div class="progress-label">热量目标</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle class="progress-ring-circle" stroke="#E8E6F0" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                                <circle class="progress-ring-circle" stroke="#00C9B7" stroke-width="8" fill="transparent" r="42" cx="50" cy="50" 
+                                    stroke-dasharray="264" stroke-dashoffset="132" id="proteinProgress"/>
+                            </svg>
+                            <div class="progress-text">
+                                <div class="progress-percent" id="proteinPercent">50%</div>
+                                <div class="progress-label">蛋白质目标</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle class="progress-ring-circle" stroke="#E8E6F0" stroke-width="8" fill="transparent" r="42" cx="50" cy="50"/>
+                                <circle class="progress-ring-circle" stroke="#FF6B9D" stroke-width="8" fill="transparent" r="42" cx="50" cy="50" 
+                                    stroke-dasharray="264" stroke-dashoffset="132" id="carbsProgress"/>
+                            </svg>
+                            <div class="progress-text">
+                                <div class="progress-percent" id="carbsPercent">50%</div>
+                                <div class="progress-label">碳水目标</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="daily-total">
+                    <div class="total-grid">
+                        <div class="total-item">
+                            <div class="total-value" id="progressCalories">0/1750</div>
+                            <div class="total-label">热量进度</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="progressProtein">0/119</div>
+                            <div class="total-label">蛋白质进度</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="progressCarbs">0/193</div>
+                            <div class="total-label">碳水进度</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="total-value" id="progressFat">0/49</div>
+                            <div class="total-label">脂肪进度</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 浮动操作按钮 -->
+    <div class="action-buttons">
+        <button class="floating-btn" onclick="exportToExcel()" title="导出Excel">
+            <i class="fas fa-file-excel"></i>
+        </button>
+        <button class="floating-btn" onclick="printPlan()" title="打印计划">
+            <i class="fas fa-print"></i>
+        </button>
+        <button class="floating-btn" onclick="showHelp()" title="使用帮助">
+            <i class="fas fa-question-circle"></i>
+        </button>
+    </div>
+
+    <!-- 添加餐食记录模态框 -->
+    <div class="modal" id="mealModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-utensils"></i>
+                    <span id="mealModalTitle">添加餐食记录</span>
+                </div>
+                <button class="modal-close" onclick="closeMealModal()">&times;</button>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-clock"></i>
+                        <span>用餐时间</span>
+                    </div>
+                    <select id="mealTime" class="elegant-input">
+                        <option value="早餐">早餐</option>
+                        <option value="上午加餐">上午加餐</option>
+                        <option value="午餐">午餐</option>
+                        <option value="下午加餐">下午加餐</option>
+                        <option value="晚餐">晚餐</option>
+                        <option value="睡前加餐">睡前加餐</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-edit"></i>
+                        <span>具体时间</span>
+                    </div>
+                    <input type="time" id="mealTimeDetail" class="elegant-input" value="08:00">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <i class="fas fa-utensil-spoon"></i>
+                    <span>食物内容</span>
+                </div>
+                <input type="text" id="mealContent" class="elegant-input" placeholder="例如：燕麦50g + 鸡蛋2个 + 牛奶200ml">
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-drumstick-bite"></i>
+                        <span>蛋白质 (g)</span>
+                    </div>
+                    <input type="number" id="mealProtein" class="elegant-input" value="0" min="0" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-bread-slice"></i>
+                        <span>碳水化合物 (g)</span>
+                    </div>
+                    <input type="number" id="mealCarbs" class="elegant-input" value="0" min="0" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-oil-can"></i>
+                        <span>脂肪 (g)</span>
+                    </div>
+                    <input type="number" id="mealFat" class="elegant-input" value="0" min="0" step="0.1">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-fire"></i>
+                        <span>热量 (大卡)</span>
+                    </div>
+                    <input type="number" id="mealCalories" class="elegant-input" value="0" min="0" step="1">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <i class="fas fa-comment"></i>
+                    <span>备注</span>
+                </div>
+                <textarea id="mealNotes" class="elegant-input" rows="3" placeholder="可添加食物具体做法、感受等备注信息"></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="saveMeal()">
+                    <i class="fas fa-save"></i>
+                    保存记录
+                </button>
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeMealModal()">
+                    <i class="fas fa-times"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加/编辑训练动作模态框 -->
+    <div class="modal" id="exerciseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-dumbbell"></i>
+                    <span id="exerciseModalTitle">添加训练动作</span>
+                </div>
+                <button class="modal-close" onclick="closeExerciseModal()">&times;</button>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-calendar-day"></i>
+                        <span>训练日</span>
+                    </div>
+                    <select id="exerciseDay" class="elegant-input">
+                        <option value="周一">周一：臀腿力量日</option>
+                        <option value="周二">周二：胸部+三头</option>
+                        <option value="周三">周三：背部+二头</option>
+                        <option value="周四">周四：肩部+核心</option>
+                        <option value="周五">周五：臀腿增肌日</option>
+                        <option value="周六">周六：主动恢复</option>
+                        <option value="周日">周日：完全休息</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-dumbbell"></i>
+                        <span>动作名称</span>
+                    </div>
+                    <input type="text" id="exerciseName" class="elegant-input" placeholder="例如：杠铃深蹲">
+                </div>
+            </div>
+            
+            <div class="form-grid">
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-list-ol"></i>
+                        <span>组数</span>
+                    </div>
+                    <input type="number" id="exerciseSets" class="elegant-input" value="3" min="1" max="10">
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-label">
+                        <i class="fas fa-redo"></i>
+                        <span>次数</span>
+                    </div>
+                    <input type="text" id="exerciseReps" class="elegant-input" placeholder="例如：8-12次">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <i class="fas fa-weight-hanging"></i>
+                    <span>建议重量</span>
+                </div>
+                <input type="text" id="exerciseWeight" class="elegant-input" placeholder="例如：20-30kg">
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>动作要点</span>
+                </div>
+                <textarea id="exerciseTips" class="elegant-input" rows="3" placeholder="例如：保持背部挺直，膝盖不超过脚尖"></textarea>
+            </div>
+            
+            <div class="input-group">
+                <div class="input-label">
+                    <i class="fas fa-images"></i>
+                    <span>动作图片</span>
+                </div>
+                <div class="exercise-images" id="imageUploadArea">
+                    <div class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <input type="file" id="imageInput" accept="image/*" multiple style="display: none;" onchange="handleImageUpload(event)">
+            </div>
+            
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button class="btn btn-primary" style="flex: 1;" onclick="saveExercise()">
+                    <i class="fas fa-save"></i>
+                    保存动作
+                </button>
+                <button class="btn btn-secondary" style="flex: 1;" onclick="closeExerciseModal()">
+                    <i class="fas fa-times"></i>
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 图片查看模态框 -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content image-modal">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-images"></i>
+                    <span>动作图片</span>
+                </div>
+                <button class="modal-close" onclick="closeImageModal()">&times;</button>
+            </div>
+            <div class="image-modal-content" id="imageModalContent">
+                <!-- 图片将通过JS动态加载 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentDate = new Date();
+        let editingMealId = null;
+        let editingExerciseId = null;
+        let exerciseImages = {};
+        let trainingPlan = {
+            "周一": [
+                { id: 1, name: "杠铃深蹲", sets: 4, reps: "6-8次", weight: "20-30kg", tips: "保持背部挺直，膝盖不超过脚尖" },
+                { id: 2, name: "罗马尼亚硬拉", sets: 4, reps: "8-10次", weight: "15-25kg", tips: "感受腘绳肌拉伸" },
+                { id: 3, name: "臀推", sets: 4, reps: "10-12次", weight: "30-40kg", tips: "顶峰收缩2秒" }
+            ],
+            "周二": [
+                { id: 4, name: "杠铃卧推", sets: 4, reps: "8-10次", weight: "15-25kg", tips: "沉肩收紧肩胛" },
+                { id: 5, name: "上斜哑铃卧推", sets: 3, reps: "10-12次", weight: "8-12kg/只", tips: "上胸发力感" }
+            ],
+            "周三": [
+                { id: 6, name: "引体向上(辅助)", sets: 4, reps: "6-8次", weight: "辅助带", tips: "完全伸展到完全收缩" },
+                { id: 7, name: "杠铃划船", sets: 4, reps: "8-10次", weight: "15-25kg", tips: "背部驱动" }
+            ],
+            "周四": [
+                { id: 8, name: "哑铃肩推", sets: 4, reps: "8-10次", weight: "6-10kg/只", tips: "避免腰部反弓" },
+                { id: 9, name: "侧平举", sets: 4, reps: "12-15次", weight: "3-5kg/只", tips: "小重量高质量" }
+            ],
+            "周五": [
+                { id: 10, name: "保加利亚分腿蹲", sets: 3, reps: "10-12次/腿", weight: "8-12kg/只", tips: "控制平衡" },
+                { id: 11, name: "臀桥", sets: 4, reps: "12-15次", weight: "30-40kg", tips: "顶峰暂停" }
+            ]
+        };
+
+        let mealLogs = {
+            [getDateKey(new Date())]: [
+                { id: 1, time: "早餐", timeDetail: "08:00", content: "燕麦50g + 鸡蛋2个 + 牛奶200ml", protein: 25, carbs: 30, fat: 12, calories: 328, notes: "" },
+                { id: 2, time: "午餐", timeDetail: "12:30", content: "糙米100g + 鸡胸肉150g + 西兰花200g", protein: 45, carbs: 35, fat: 8, calories: 392, notes: "" },
+                { id: 3, time: "晚餐", timeDetail: "19:00", content: "三文鱼120g + 红薯150g + 蔬菜沙拉", protein: 32, carbs: 40, fat: 15, calories: 443, notes: "" }
+            ]
+        };
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initApp();
+            calculateMacros();
+            updateDateDisplay();
+            loadMealLogs();
+            renderTrainingPlan();
+            updateProgress();
+        });
+
+        // 初始化应用
+        function initApp() {
+            document.getElementById('currentDate').textContent = formatDate(new Date());
+            document.getElementById('selectedDate').textContent = formatDate(currentDate);
+        }
+
+        // 显示对应标签页
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            document.querySelector(`.tab[onclick*="${tabId}"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // 计算宏量营养素
+        function calculateMacros() {
+            const trainCalories = parseFloat(document.getElementById('trainCalories').value);
+            const proteinRatio = parseFloat(document.getElementById('proteinRatio').value) || 27;
+            const carbsRatio = parseFloat(document.getElementById('carbsRatio').value) || 48;
+            const fatRatio = parseFloat(document.getElementById('fatRatio').value) || 25;
+            
+            const trainProtein = Math.round(trainCalories * proteinRatio / 100 / 4);
+            const trainCarbs = Math.round(trainCalories * carbsRatio / 100 / 4);
+            const trainFat = Math.round(trainCalories * fatRatio / 100 / 9);
+            
+            // 更新显示
+            document.getElementById('trainProtein').textContent = trainProtein;
+            document.getElementById('trainCarbs').textContent = trainCarbs;
+            document.getElementById('trainFat').textContent = trainFat;
+            
+            document.getElementById('proteinPct').textContent = proteinRatio + '%';
+            document.getElementById('carbsPct').textContent = carbsRatio + '%';
+            document.getElementById('fatPct').textContent = fatRatio + '%';
+            
+            document.getElementById('macroBars').innerHTML = `
+                <div class="macro-protein" style="width: ${proteinRatio}%"></div>
+                <div class="macro-carbs" style="width: ${carbsRatio}%"></div>
+                <div class="macro-fat" style="width: ${fatRatio}%"></div>
+            `;
+            
+            document.getElementById('macroResults').style.display = 'block';
+            
+            // 更新进度分析中的目标值
+            document.getElementById('progressCalories').textContent = `0/${trainCalories}`;
+            document.getElementById('progressProtein').textContent = `0/${trainProtein}`;
+            document.getElementById('progressCarbs').textContent = `0/${trainCarbs}`;
+            document.getElementById('progressFat').textContent = `0/${trainFat}`;
+        }
+
+        // 更新营养目标
+        function updateNutritionGoals() {
+            calculateMacros();
+            alert('营养目标已更新！');
+        }
+
+        // 日期处理函数
+        function formatDate(date) {
+            return date.toLocaleDateString('zh-CN', { 
+                year: 'numeric', 
+                month: '2-digit', 
+                day: '2-digit',
+                weekday: 'short'
+            });
+        }
+
+        function getDateKey(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        function changeDate(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDateDisplay();
+            loadMealLogs();
+        }
+
+        function updateDateDisplay() {
+            document.getElementById('selectedDate').textContent = formatDate(currentDate);
+        }
+
+        // 餐食记录功能
+        function loadMealLogs() {
+            const dateKey = getDateKey(currentDate);
+            const meals = mealLogs[dateKey] || [];
+            const container = document.getElementById('mealLogContainer');
+            
+            if (meals.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-utensils"></i>
+                        <p>今天还没有记录餐食</p>
+                        <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 10px;">点击下方按钮开始记录</p>
+                    </div>
+                `;
+                updateDailyTotal(0, 0, 0, 0);
+                return;
+            }
+            
+            container.innerHTML = '';
+            meals.sort((a, b) => {
+                const timeOrder = { "早餐": 1, "上午加餐": 2, "午餐": 3, "下午加餐": 4, "晚餐": 5, "睡前加餐": 6 };
+                return timeOrder[a.time] - timeOrder[b.time];
+            });
+            
+            let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFat = 0;
+            
+            meals.forEach(meal => {
+                totalCalories += meal.calories;
+                totalProtein += meal.protein;
+                totalCarbs += meal.carbs;
+                totalFat += meal.fat;
+                
+                const mealElement = document.createElement('div');
+                mealElement.className = 'meal-item';
+                mealElement.innerHTML = `
+                    <div class="meal-time">${meal.time}<br><small>${meal.timeDetail}</small></div>
+                    <div class="meal-content">
+                        <div style="font-weight: 500; margin-bottom: 5px;">${meal.content}</div>
+                        ${meal.notes ? `<div style="color: var(--text-light); font-size: 0.9rem;">${meal.notes}</div>` : ''}
+                    </div>
+                    <div class="meal-macros">
+                        <div>${meal.protein}g 蛋白质</div>
+                        <div>${meal.carbs}g 碳水</div>
+                        <div>${meal.fat}g 脂肪</div>
+                    </div>
+                    <div class="meal-actions">
+                        <div class="action-icon action-edit" onclick="editMeal(${meal.id})">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="action-icon action-delete" onclick="deleteMeal(${meal.id})">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(mealElement);
+            });
+            
+            updateDailyTotal(totalCalories, totalProtein, totalCarbs, totalFat);
+        }
+
+        function updateDailyTotal(calories, protein, carbs, fat) {
+            document.getElementById('totalCalories').textContent = calories;
+            document.getElementById('totalProtein').textContent = protein.toFixed(1);
+            document.getElementById('totalCarbs').textContent = carbs.toFixed(1);
+            document.getElementById('totalFat').textContent = fat.toFixed(1);
+            
+            // 更新进度分析
+            updateProgress();
+        }
+
+        function openMealModal(mealId = null) {
+            editingMealId = mealId;
+            const modal = document.getElementById('mealModal');
+            const title = document.getElementById('mealModalTitle');
+            
+            if (mealId) {
+                title.textContent = '编辑餐食记录';
+                const dateKey = getDateKey(currentDate);
+                const meal = mealLogs[dateKey].find(m => m.id === mealId);
+                if (meal) {
+                    document.getElementById('mealTime').value = meal.time;
+                    document.getElementById('mealTimeDetail').value = meal.timeDetail;
+                    document.getElementById('mealContent').value = meal.content;
+                    document.getElementById('mealProtein').value = meal.protein;
+                    document.getElementById('mealCarbs').value = meal.carbs;
+                    document.getElementById('mealFat').value = meal.fat;
+                    document.getElementById('mealCalories').value = meal.calories;
+                    document.getElementById('mealNotes').value = meal.notes;
+                }
+            } else {
+                title.textContent = '添加餐食记录';
+                document.getElementById('mealTime').value = '早餐';
+                document.getElementById('mealTimeDetail').value = '08:00';
+                document.getElementById('mealContent').value = '';
+                document.getElementById('mealProtein').value = '0';
+                document.getElementById('mealCarbs').value = '0';
+                document.getElementById('mealFat').value = '0';
+                document.getElementById('mealCalories').value = '0';
+                document.getElementById('mealNotes').value = '';
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeMealModal() {
+            document.getElementById('mealModal').style.display = 'none';
+        }
+
+        function saveMeal() {
+            const dateKey = getDateKey(currentDate);
+            const mealData = {
+                id: editingMealId || Date.now(),
+                time: document.getElementById('mealTime').value,
+                timeDetail: document.getElementById('mealTimeDetail').value,
+                content: document.getElementById('mealContent').value,
+                protein: parseFloat(document.getElementById('mealProtein').value) || 0,
+                carbs: parseFloat(document.getElementById('mealCarbs').value) || 0,
+                fat: parseFloat(document.getElementById('mealFat').value) || 0,
+                calories: parseInt(document.getElementById('mealCalories').value) || 0,
+                notes: document.getElementById('mealNotes').value
+            };
+            
+            if (!mealLogs[dateKey]) {
+                mealLogs[dateKey] = [];
+            }
+            
+            if (editingMealId) {
+                const index = mealLogs[dateKey].findIndex(m => m.id === editingMealId);
+                if (index !== -1) {
+                    mealLogs[dateKey][index] = mealData;
+                }
+            } else {
+                mealLogs[dateKey].push(mealData);
+            }
+            
+            closeMealModal();
+            loadMealLogs();
+        }
+
+        function editMeal(mealId) {
+            openMealModal(mealId);
+        }
+
+        function deleteMeal(mealId) {
+            if (confirm('确定要删除这条记录吗？')) {
+                const dateKey = getDateKey(currentDate);
+                mealLogs[dateKey] = mealLogs[dateKey].filter(m => m.id !== mealId);
+                loadMealLogs();
+            }
+        }
+
+        // 训练计划功能
+        function renderTrainingPlan() {
+            const container = document.getElementById('trainingPlan');
+            container.innerHTML = '';
+            
+            const days = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"];
+            
+            days.forEach(day => {
+                const exercises = trainingPlan[day] || [];
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                dayCard.innerHTML = `
+                    <div class="day-header">
+                        <div class="day-title">
+                            <i class="fas fa-calendar-day"></i>
+                            <span>${day}</span>
+                        </div>
+                        ${day === "周六" || day === "周日" ? 
+                            '<span style="color: var(--accent); font-size: 0.9rem; background: rgba(0,201,183,0.1); padding: 4px 12px; border-radius: 8px;">主动恢复</span>' :
+                            '<span style="color: var(--primary); font-size: 0.9rem; background: rgba(139,95,191,0.1); padding: 4px 12px; border-radius: 8px;">训练日</span>'
+                        }
+                    </div>
+                    <ul class="exercise-list">
+                        ${exercises.length > 0 ? exercises.map(ex => `
+                            <li class="exercise-item">
+                                <div>
+                                    <div class="exercise-header">
+                                        <div class="exercise-name">
+                                            <i class="fas fa-dumbbell"></i>
+                                            ${ex.name}
+                                        </div>
+                                        <div class="exercise-detail">${ex.sets}组 × ${ex.reps}</div>
+                                    </div>
+                                    ${ex.weight ? `<div style="color: var(--text-secondary); font-size: 0.9rem; margin: 5px 0;">重量：${ex.weight}</div>` : ''}
+                                    ${ex.tips ? `<div style="color: var(--text-light); font-size: 0.85rem; font-style: italic; margin: 5px 0;">${ex.tips}</div>` : ''}
+                                    <div class="exercise-images" id="images-${ex.id}">
+                                        ${renderExerciseImages(ex.id)}
+                                    </div>
+                                    <div class="exercise-actions">
+                                        <button class="btn btn-secondary btn-small" onclick="editExercise('${day}', ${ex.id})">
+                                            <i class="fas fa-edit"></i> 编辑
+                                        </button>
+                                        <button class="btn btn-secondary btn-small" onclick="deleteExercise('${day}', ${ex.id})">
+                                            <i class="fas fa-trash"></i> 删除
+                                        </button>
+                                        <button class="btn btn-secondary btn-small" onclick="uploadExerciseImage(${ex.id})">
+                                            <i class="fas fa-camera"></i> 上传图片
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        `).join('') : `
+                            <li class="exercise-item">
+                                <div style="color: var(--text-light); text-align: center; padding: 20px;">
+                                    <i class="fas fa-plus-circle" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                                    <p>暂无训练动作</p>
+                                    <button class="btn btn-secondary btn-small" onclick="openExerciseModal('${day}')">
+                                        <i class="fas fa-plus"></i> 添加动作
+                                    </button>
+                                </div>
+                            </li>
+                        `}
+                    </ul>
+                `;
+                container.appendChild(dayCard);
+            });
+        }
+
+        function renderExerciseImages(exerciseId) {
+            if (!exerciseImages[exerciseId]) {
+                return `<div class="upload-btn" onclick="uploadExerciseImage(${exerciseId})">
+                    <i class="fas fa-plus"></i>
+                </div>`;
+            }
+            
+            return exerciseImages[exerciseId].map((img, index) => `
+                <img src="${img}" class="image-preview" alt="动作图片" 
+                     onclick="viewExerciseImages(${exerciseId}, ${index})">
+            `).join('') + `<div class="upload-btn" onclick="uploadExerciseImage(${exerciseId})">
+                <i class="fas fa-plus"></i>
+            </div>`;
+        }
+
+        function openExerciseModal(day = null, exerciseId = null) {
+            editingExerciseId = exerciseId;
+            const modal = document.getElementById('exerciseModal');
+            const title = document.getElementById('exerciseModalTitle');
+            const uploadArea = document.getElementById('imageUploadArea');
+            
+            if (exerciseId) {
+                title.textContent = '编辑训练动作';
+                let foundExercise = null;
+                for (const dayKey in trainingPlan) {
+                    foundExercise = trainingPlan[dayKey].find(ex => ex.id === exerciseId);
+                    if (foundExercise) {
+                        document.getElementById('exerciseDay').value = dayKey;
+                        break;
+                    }
+                }
+                if (foundExercise) {
+                    document.getElementById('exerciseName').value = foundExercise.name;
+                    document.getElementById('exerciseSets').value = foundExercise.sets;
+                    document.getElementById('exerciseReps').value = foundExercise.reps;
+                    document.getElementById('exerciseWeight').value = foundExercise.weight || '';
+                    document.getElementById('exerciseTips').value = foundExercise.tips || '';
+                }
+                
+                // 显示已有图片
+                uploadArea.innerHTML = '';
+                if (exerciseImages[exerciseId]) {
+                    exerciseImages[exerciseId].forEach((img, index) => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = img;
+                        imgElement.className = 'image-preview';
+                        imgElement.onclick = () => removeImage(exerciseId, index);
+                        uploadArea.appendChild(imgElement);
+                    });
+                }
+                uploadArea.innerHTML += `<div class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                    <i class="fas fa-plus"></i>
+                </div>`;
+            } else {
+                title.textContent = '添加训练动作';
+                document.getElementById('exerciseDay').value = day || '周一';
+                document.getElementById('exerciseName').value = '';
+                document.getElementById('exerciseSets').value = 3;
+                document.getElementById('exerciseReps').value = '';
+                document.getElementById('exerciseWeight').value = '';
+                document.getElementById('exerciseTips').value = '';
+                
+                uploadArea.innerHTML = `<div class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                    <i class="fas fa-plus"></i>
+                </div>`;
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeExerciseModal() {
+            document.getElementById('exerciseModal').style.display = 'none';
+        }
+
+        function saveExercise() {
+            const day = document.getElementById('exerciseDay').value;
+            const exerciseData = {
+                id: editingExerciseId || Date.now(),
+                name: document.getElementById('exerciseName').value,
+                sets: parseInt(document.getElementById('exerciseSets').value),
+                reps: document.getElementById('exerciseReps').value,
+                weight: document.getElementById('exerciseWeight').value,
+                tips: document.getElementById('exerciseTips').value
+            };
+            
+            if (!trainingPlan[day]) {
+                trainingPlan[day] = [];
+            }
+            
+            if (editingExerciseId) {
+                // 更新动作，保留图片
+                for (const dayKey in trainingPlan) {
+                    const index = trainingPlan[dayKey].findIndex(ex => ex.id === editingExerciseId);
+                    if (index !== -1) {
+                        if (dayKey !== day) {
+                            // 移动到新的训练日
+                            trainingPlan[dayKey].splice(index, 1);
+                            trainingPlan[day].push(exerciseData);
+                        } else {
+                            trainingPlan[day][index] = exerciseData;
+                        }
+                        break;
+                    }
+                }
+            } else {
+                trainingPlan[day].push(exerciseData);
+            }
+            
+            closeExerciseModal();
+            renderTrainingPlan();
+        }
+
+        function editExercise(day, exerciseId) {
+            openExerciseModal(day, exerciseId);
+        }
+
+        function deleteExercise(day, exerciseId) {
+            if (confirm('确定要删除这个训练动作吗？')) {
+                trainingPlan[day] = trainingPlan[day].filter(ex => ex.id !== exerciseId);
+                delete exerciseImages[exerciseId];
+                renderTrainingPlan();
+            }
+        }
+
+        // 图片上传功能
+        function uploadExerciseImage(exerciseId) {
+            const input = document.getElementById('imageInput');
+            input.onchange = (e) => handleImageUpload(e, exerciseId);
+            input.click();
+        }
+
+        function handleImageUpload(event, exerciseId = editingExerciseId) {
+            const files = event.target.files;
+            if (!exerciseId) return;
+            
+            if (!exerciseImages[exerciseId]) {
+                exerciseImages[exerciseId] = [];
+            }
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    exerciseImages[exerciseId].push(e.target.result);
+                    renderTrainingPlan();
+                    
+                    if (editingExerciseId === exerciseId) {
+                        const uploadArea = document.getElementById('imageUploadArea');
+                        uploadArea.innerHTML = '';
+                        exerciseImages[exerciseId].forEach((img, index) => {
+                            const imgElement = document.createElement('img');
+                            imgElement.src = img;
+                            imgElement.className = 'image-preview';
+                            imgElement.onclick = () => removeImage(exerciseId, index);
+                            uploadArea.appendChild(imgElement);
+                        });
+                        uploadArea.innerHTML += `<div class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                            <i class="fas fa-plus"></i>
+                        </div>`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeImage(exerciseId, index) {
+            if (confirm('确定要删除这张图片吗？')) {
+                exerciseImages[exerciseId].splice(index, 1);
+                renderTrainingPlan();
+                
+                if (editingExerciseId === exerciseId) {
+                    const uploadArea = document.getElementById('imageUploadArea');
+                    uploadArea.innerHTML = '';
+                    exerciseImages[exerciseId].forEach((img, idx) => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = img;
+                        imgElement.className = 'image-preview';
+                        imgElement.onclick = () => removeImage(exerciseId, idx);
+                        uploadArea.appendChild(imgElement);
+                    });
+                    uploadArea.innerHTML += `<div class="upload-btn" onclick="document.getElementById('imageInput').click()">
+                        <i class="fas fa-plus"></i>
+                    </div>`;
+                }
+            }
+        }
+
+        function viewExerciseImages(exerciseId, startIndex = 0) {
+            if (!exerciseImages[exerciseId] || exerciseImages[exerciseId].length === 0) return;
+            
+            const modal = document.getElementById('imageModal');
+            const content = document.getElementById('imageModalContent');
+            content.innerHTML = `
+                <img src="${exerciseImages[exerciseId][startIndex]}" class="large-image" alt="动作图片">
+                <div class="image-gallery">
+                    ${exerciseImages[exerciseId].map((img, index) => `
+                        <img src="${img}" class="gallery-image" 
+                             onclick="viewExerciseImages(${exerciseId}, ${index})"
+                             style="${index === startIndex ? 'border: 2px solid var(--primary);' : ''}">
+                    `).join('')}
+                </div>
+            `;
+            
+            modal.style.display = 'flex';
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // 进度更新
+        function updateProgress() {
+            const dateKey = getDateKey(currentDate);
+            const meals = mealLogs[dateKey] || [];
+            
+            let totalCalories = 0, totalProtein = 0, totalCarbs = 0, totalFat = 0;
+            meals.forEach(meal => {
+                totalCalories += meal.calories;
+                totalProtein += meal.protein;
+                totalCarbs += meal.carbs;
+                totalFat += meal.fat;
+            });
+            
+            const targetCalories = parseFloat(document.getElementById('trainCalories').value);
+            const targetProtein = parseFloat(document.getElementById('trainProtein').textContent);
+            const targetCarbs = parseFloat(document.getElementById('trainCarbs').textContent);
+            const targetFat = parseFloat(document.getElementById('trainFat').textContent);
+            
+            const caloriePercent = Math.min(Math.round((totalCalories / targetCalories) * 100), 100);
+            const proteinPercent = Math.min(Math.round((totalProtein / targetProtein) * 100), 100);
+            const carbsPercent = Math.min(Math.round((totalCarbs / targetCarbs) * 100), 100);
+            
+            document.getElementById('caloriePercent').textContent = caloriePercent + '%';
+            document.getElementById('proteinPercent').textContent = proteinPercent + '%';
+            document.getElementById('carbsPercent').textContent = carbsPercent + '%';
+            
+            document.getElementById('progressCalories').textContent = `${totalCalories}/${targetCalories}`;
+            document.getElementById('progressProtein').textContent = `${totalProtein.toFixed(1)}/${targetProtein}`;
+            document.getElementById('progressCarbs').textContent = `${totalCarbs.toFixed(1)}/${targetCarbs}`;
+            document.getElementById('progressFat').textContent = `${totalFat.toFixed(1)}/${targetFat}`;
+            
+            // 更新进度环
+            const calorieOffset = 264 - (264 * caloriePercent / 100);
+            const proteinOffset = 264 - (264 * proteinPercent / 100);
+            const carbsOffset = 264 - (264 * carbsPercent / 100);
+            
+            document.getElementById('calorieProgress').style.strokeDashoffset = calorieOffset;
+            document.getElementById('proteinProgress').style.strokeDashoffset = proteinOffset;
+            document.getElementById('carbsProgress').style.strokeDashoffset = carbsOffset;
+        }
+
+        // Excel导出功能
+        function exportToExcel() {
+            // 创建Workbook数据
+            const wb = {
+                SheetNames: ['训练计划', '营养记录', '个人数据'],
+                Sheets: {
+                    '训练计划': generateTrainingSheet(),
+                    '营养记录': generateNutritionSheet(),
+                    '个人数据': generateDataSheet()
+                }
+            };
+            
+            // 使用SheetJS库导出（这里使用简单的CSV导出作为示例）
+            // 在实际应用中，您需要引入xlsx.full.min.js
+            const today = new Date().toISOString().split('T')[0];
+            
+            // 生成CSV内容
+            let csvContent = "健身管理系统数据导出\r\n";
+            csvContent += `导出时间: ${new Date().toLocaleString()}\r\n\r\n`;
+            
+            csvContent += "=== 训练计划 ===\r\n";
+            csvContent += "训练日,动作名称,组数,次数,建议重量,动作要点\r\n";
+            for (const day in trainingPlan) {
+                trainingPlan[day].forEach(exercise => {
+                    csvContent += `${day},${exercise.name},${exercise.sets},${exercise.reps},"${exercise.weight}","${exercise.tips}"\r\n`;
+                });
+            }
+            
+            csvContent += "\r\n=== 营养记录 ===\r\n";
+            const currentDateKey = getDateKey(currentDate);
+            if (mealLogs[currentDateKey]) {
+                csvContent += "用餐时间,食物内容,蛋白质(g),碳水(g),脂肪(g),热量(大卡),备注\r\n";
+                mealLogs[currentDateKey].forEach(meal => {
+                    csvContent += `${meal.time} ${meal.timeDetail},"${meal.content}",${meal.protein},${meal.carbs},${meal.fat},${meal.calories},"${meal.notes}"\r\n`;
+                });
+            }
+            
+            csvContent += "\r\n=== 个人数据 ===\r\n";
+            csvContent += `身高: ${document.getElementById('height').value}cm\r\n`;
+            csvContent += `体重: ${document.getElementById('weight').value}kg\r\n`;
+            csvContent += `BMI: ${document.getElementById('bmi').value}\r\n`;
+            csvContent += `训练日热量目标: ${document.getElementById('trainCalories').value}大卡\r\n`;
+            csvContent += `休息日热量目标: ${document.getElementById('restCalories').value}大卡\r\n`;
+            csvContent += `蛋白质目标: ${document.getElementById('trainProtein').textContent}g\r\n`;
+            csvContent += `碳水目标: ${document.getElementById('trainCarbs').textContent}g\r\n`;
+            csvContent += `脂肪目标: ${document.getElementById('trainFat').textContent}g\r\n`;
+            
+            // 创建下载链接
+            const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `健身数据_${today}.csv`;
+            link.click();
+            
+            alert('数据已导出为CSV文件，可以用Excel打开查看！\n如需更美观的Excel格式，建议使用Microsoft Excel导入此CSV文件并进行格式美化。');
+        }
+
+        function generateTrainingSheet() {
+            // 这里应该使用SheetJS库来生成实际的Excel工作表
+            // 由于篇幅限制，这里返回一个简单的数据结构
+            return {};
+        }
+
+        function generateNutritionSheet() {
+            return {};
+        }
+
+        function generateDataSheet() {
+            return {};
+        }
+
+        // 辅助功能
+        function printPlan() {
+            window.print();
+        }
+
+        function showHelp() {
+            alert('使用说明：\n\n1. 在左侧面板输入您的身体数据和营养目标\n2. 点击"重新计算营养素"更新宏量营养素分配\n3. 在"训练计划"标签页可以添加、编辑和删除训练动作\n4. 在右侧面板记录每日餐食摄入\n5. 点击下方的Excel图标导出数据\n6. 可以为每个训练动作上传参考图片');
+        }
+
+        // 自动计算热量输入框
+        document.getElementById('mealProtein').addEventListener('input', calculateMealCalories);
+        document.getElementById('mealCarbs').addEventListener('input', calculateMealCalories);
+        document.getElementById('mealFat').addEventListener('input', calculateMealCalories);
+
+        function calculateMealCalories() {
+            const protein = parseFloat(document.getElementById('mealProtein').value) || 0;
+            const carbs = parseFloat(document.getElementById('mealCarbs').value) || 0;
+            const fat = parseFloat(document.getElementById('mealFat').value) || 0;
+            
+            const calories = protein * 4 + carbs * 4 + fat * 9;
+            document.getElementById('mealCalories').value = Math.round(calories);
+        }
+    </script>
+
+    <!-- SheetJS库用于导出Excel（CDN链接） -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</body>
+</html>

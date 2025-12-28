@@ -1,0 +1,85 @@
+.meal-log {
+  margin-top: 25px;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: var(--light-bg);
+  border-radius: 12px;
+}
+
+.date-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 8px;
+}
+
+.current-date {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.meal-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: var(--light-bg);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+}
+
+.meal-time {
+  min-width: 100px;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.meal-content {
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.meal-macros {
+  display: flex;
+  gap: 20px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.meal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-edit {
+  background: rgba(0, 201, 183, 0.1);
+  color: var(--accent);
+}
+
+.action-delete {
+  background: rgba(255, 107, 157, 0.1);
+  color: var(--danger);
+}
+
+.action-icon:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,36 @@
+.card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 15px 40px var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--border);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--primary);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.card-title i {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

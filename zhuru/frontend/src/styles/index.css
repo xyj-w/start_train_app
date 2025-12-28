@@ -1,0 +1,11 @@
+@import './base.css';
+@import './header.css';
+@import './dashboard.css';
+@import './card.css';
+@import './form.css';
+@import './stats.css';
+@import './tabs.css';
+@import './training-plan.css';
+@import './meal-log.css';
+@import './progress-analysis.css';
+@import './action-buttons.css';

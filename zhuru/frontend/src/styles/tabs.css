@@ -1,0 +1,36 @@
+.tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 30px;
+  background: var(--light-bg);
+  padding: 5px;
+  border-radius: 12px;
+}
+
+.tab {
+  flex: 1;
+  padding: 15px;
+  text-align: center;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.tab.active {
+  background: white;
+  color: var(--primary);
+  box-shadow: 0 3px 10px var(--shadow);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
